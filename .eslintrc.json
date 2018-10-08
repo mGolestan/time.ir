@@ -1,0 +1,118 @@
+{
+  "env": {
+    "node": true,
+    "es6": true
+  },
+  "extends": [
+    "walmart/configurations/es6-node",
+    "prettier",
+    "plugin:import-order/recommended"
+  ],
+  "overrides": [
+    {
+      "env": {
+        "jest": true
+      },
+      "files": ["**/*.spec.js", "mockTokenData.js", "setupTests.js"],
+      "rules": {
+        "flowtype/require-valid-file-annotation": 0,
+        "flowtype/require-parameter-type": 0,
+        "camelcase": 0,
+        "global-require": 0,
+        "no-magic-numbers": 0
+      }
+    },
+    {
+      "files": ["scripts/**/*.js"],
+      "rules": {
+        "filenames/match-regex": [2, "^[a-z0-9\\-]+$"],
+        "flowtype/require-valid-file-annotation": "off",
+        "flowtype/require-parameter-type": 0,
+        "no-console": 0,
+        "no-process-exit": 0
+      }
+    }
+  ],
+  "plugins": ["jest", "flowtype", "prettier", "import-order"],
+  "rules": {
+    "strict": 0,
+    "max-params": ["error", 4],
+    "func-style": [
+      "error",
+      "declaration",
+      {
+        "allowArrowFunctions": true
+      }
+    ],
+    "comma-dangle": ["error", "never"],
+    "no-underscore-dangle": [
+      "error",
+      {
+        "allowAfterThis": true
+      }
+    ],
+    "max-len": [
+      "error",
+      {
+        "ignoreTrailingComments": true,
+        "code": 100
+      }
+    ],
+    "class-methods-use-this": 1,
+    "complexity": 0,
+    "no-global-assign": 2,
+    "no-param-reassign": "off",
+    "no-plusplus": "off",
+    "no-console": "error",
+    "prettier/prettier": "error",
+    "filenames/match-regex": [2, "^[a-z][a-zA-Z0-9_\\.]+$"],
+    "flowtype/boolean-style": [2, "boolean"],
+    "flowtype/define-flow-type": 1,
+    "flowtype/delimiter-dangle": [2, "never"],
+    "flowtype/generic-spacing": 0,
+    "flowtype/no-primitive-constructor-types": 2,
+    "flowtype/no-types-missing-file-annotation": 2,
+    "flowtype/no-weak-types": 2,
+    "flowtype/object-type-delimiter": [2, "comma"],
+    "flowtype/require-parameter-type": 2,
+    "flowtype/require-return-type": [
+      2,
+      "always",
+      {
+        "excludeArrowFunctions": true
+      }
+    ],
+    "flowtype/require-valid-file-annotation": [2, "always"],
+    "flowtype/semi": [2, "always"],
+    "flowtype/space-after-type-colon": [
+      2,
+      "always",
+      {
+        "allowLineBreak": true
+      }
+    ],
+    "flowtype/space-before-generic-bracket": [2, "never"],
+    "flowtype/space-before-type-colon": [2, "never"],
+    "flowtype/type-id-match": [2, "^([A-Z][A-Za-z0-9]+)+Type$"],
+    "flowtype/union-intersection-spacing": [2, "always"],
+    "flowtype/use-flow-type": 1,
+    "flowtype/valid-syntax": 1,
+    "camelcase": [
+      1,
+      {
+        "properties": "always"
+      }
+    ],
+    "no-unused-vars": [
+      2,
+      {
+        "args": "after-used",
+        "ignoreRestSiblings": true
+      }
+    ],
+    "max-statements": "off"
+  },
+  "parserOptions": {
+    "sourceType": "module"
+  }
+}
