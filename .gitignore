@@ -1,2 +1,19 @@
-/node_modules
+# Dependency directories
+node_modules/
+
+# Hidden OS files
+.DS_Store
+
+# built files
+/build
+/lib
 /dist
+
+# dotenv environment variables file
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# NPM lock file – because we're using yarn for now
+package-lock.json

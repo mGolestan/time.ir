@@ -3,10 +3,9 @@ import { promisify } from "util";
 import { Router as router } from "express";
 import { wrap } from "async-middleware";
 import request from "request";
-import { JSDOM } from "jsdom";
 import { BadRequest } from "../utils/errors";
 import loadEnv from "../utils/loadEnv";
-import updateEventString from "../utils/updateEventString";
+import { getDayEvents } from "../utils/bodySelectors";
 
 const route = router();
 const promisifyRequest = promisify(request);
@@ -34,20 +33,9 @@ route.get(
         if (response.statusCode !== healthyStatusCode)
           throw new BadRequest("Bad Request to time.ir");
 
-        let getEventsFromHtml = {};
-        const events = [];
-        const dom = new JSDOM(response.body);
-        const getElementWithClass = dom.window.document.querySelector(
-          ".eventsCurrentMonthTitle"
+        getDayEvents(response.body).then((events: Array<string>) =>
+          res.send(events)
         );
-        if (getElementWithClass)
-          getEventsFromHtml = getElementWithClass.nextElementSibling.children;
-        Object.keys(getEventsFromHtml).map((eventKey: string) => {
-          const event = getEventsFromHtml[eventKey].textContent.trim();
-          return events.push(updateEventString(event));
-        });
-
-        res.send(events);
       })
       .catch(() => {
         throw new BadRequest("Bad Request to time.ir");
