@@ -1,32 +1,32 @@
 // @flow
 
 export class BadRequest extends Error {
-  name = "BadRequest";
-  status = 400; // eslint-disable-line no-magic-numbers
+  name: string = "BadRequest";
+  status: number = 400; // eslint-disable-line no-magic-numbers
 }
 
 export class Unauthorized extends Error {
-  name = "Unauthorized";
-  status = 401; // eslint-disable-line no-magic-numbers
+  name: string = "Unauthorized";
+  status: number = 401; // eslint-disable-line no-magic-numbers
 }
 
 export class Forbidden extends Error {
-  name = "Forbidden";
-  status = 403; // eslint-disable-line no-magic-numbers
+  name: string = "Forbidden";
+  status: number = 403; // eslint-disable-line no-magic-numbers
 }
 
 export class NotFound extends Error {
-  name = "NotFound";
-  status = 404; // eslint-disable-line no-magic-numbers
+  name: string = "NotFound";
+  status: number = 404; // eslint-disable-line no-magic-numbers
 }
 
 export class Gone extends Error {
-  name = "Gone";
-  status = 410; // eslint-disable-line no-magic-numbers
+  name: string = "Gone";
+  status: number = 410; // eslint-disable-line no-magic-numbers
 }
 
 export class InternalServerError extends Error {
-  name = "InternalServerError";
+  name: string = "InternalServerError";
   status: number = 500; // eslint-disable-line no-magic-numbers
 }
 

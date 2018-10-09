@@ -6,6 +6,10 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mGolestan/time.ir"
+  },
   "scripts": {
     "build":
       "yarn rimraf dist && yarn build:copy-sources && babel ./src --out-dir ./dist --ignore '**/*.spec.js'",
@@ -16,19 +20,12 @@
     "lint": "eslint src",
     "test": "yarn run flow && yarn lint && yarn jest src test --runInBand"
   },
-  "engines": {
-    "node": ">=8"
+  "pre-commit": ["test"],
+  "standard": {
+    "plugins": ["flowtype"]
   },
-  "eslintConfig": {
-    "plugins": ["node", "jest"],
-    "extends": ["eslint:recommended", "plugin:node/recommended"],
-    "rules": {
-      "node/no-unsupported-features": 0
-    },
-    "parserOptions": {
-      "sourceType": "module",
-      "ecmaVersion": 2018
-    }
+  "lint-staged": {
+    "*.{js,json}": ["prettier --write", "git add"]
   },
   "dependencies": {
     "body-parser": "^1.18.3",
