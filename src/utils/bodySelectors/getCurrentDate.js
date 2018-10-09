@@ -1,6 +1,6 @@
 // @flow
 import { JSDOM } from "jsdom";
-import toEnglishDigits from "../convertNumbersToEnglish";
+import toEnglishDigits from "../toEnglishDigits";
 
 export type CurrentDateObjectType = {
   shamsi: { numeral: string, text: string },
