@@ -18,22 +18,25 @@
     "start:dev": "nodemon --exec babel-node -- src/index.js",
     "flow": "flow",
     "lint": "eslint src",
+    "pretty": "prettier --write src/**/*.js",
     "test": "yarn run flow && yarn lint && yarn jest src test --runInBand"
   },
-  "pre-commit": ["test"],
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn lint-staged && yarn test"
+    }
+  },
   "standard": {
     "plugins": ["flowtype"]
   },
   "lint-staged": {
-    "*.{js,json}": ["prettier --write", "git add"]
+    "*.{js,json}": ["yarn pretty", "git add"]
+  },
+  "jest": {
+    "setupFiles": ["./test/setupTests.js"],
+    "testEnvironment": "node"
   },
   "dependencies": {
-    "body-parser": "^1.18.3",
-    "cheerio": "^1.0.0-rc.2",
-    "express": "^4.16.3",
-    "jsdom": "^12.1.0",
-    "node-fetch": "^2.2.0",
-    "request": "^2.88.0",
     "async-middleware": "^1.2.1",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
@@ -43,11 +46,17 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-flow": "^6.23.0",
     "babel-register": "^6.26.0",
+    "body-parser": "^1.18.3",
+    "cheerio": "^1.0.0-rc.2",
     "compression": "^1.7.2",
     "cors": "^2.8.4",
     "dotenv": "^6.0.0",
+    "express": "^4.16.3",
     "flow-copy-source": "1.2.1",
     "helmet": "^3.12.1",
+    "jsdom": "^12.1.0",
+    "node-fetch": "^2.2.0",
+    "request": "^2.88.0",
     "rimraf": "^2.6.2",
     "urlencode": "^1.1.0",
     "winston": "^2.4.0"
@@ -62,8 +71,9 @@
     "eslint-plugin-jest": "21.7.0",
     "eslint-plugin-prettier": "2.3.1",
     "flow-bin": "^0.72.0",
+    "husky": "^1.1.1",
     "jest": "^23.3.0",
-    "pre-commit": "^1.2.2",
+    "lint-staged": "^7.3.0",
     "prettier": "1.12.1",
     "supertest": "^3.1.0"
   }
