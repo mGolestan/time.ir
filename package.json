@@ -1,10 +1,16 @@
 {
-  "name": "bato",
+  "name": "time.ir",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "keywords": [],
-  "author": "",
+  "description": "an api for time.ir",
+  "main": "src/index.js",
+  "keywords": [
+    "date",
+    "time",
+    "persian time",
+    "persian date",
+    "persian events"
+  ],
+  "author": "Mohsen Golestan",
   "license": "ISC",
   "repository": {
     "type": "git",
