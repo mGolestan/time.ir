@@ -3,6 +3,7 @@ import { promisify } from "util";
 import { Router as router } from "express";
 import { wrap } from "async-middleware";
 import request from "request";
+import { validateParameters } from "../middlewares";
 import { BadRequest } from "../utils/errors";
 import loadEnv from "../utils/loadEnv";
 import { getDayEvents } from "../utils/bodySelectors";
@@ -20,6 +21,7 @@ type GetEventRequestType = express$Request & {
 
 route.get(
   "/",
+  validateParameters("query", ["year", "month", "day"]),
   wrap((req: GetEventRequestType, res: express$Response) => {
     const { day, month, year } = req.query;
 
