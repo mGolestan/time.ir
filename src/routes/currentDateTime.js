@@ -11,25 +11,29 @@ import type { CurrentDateObjectType } from "../utils/bodySelectors/getCurrentDat
 const route = router();
 const promisifyRequest = promisify(request);
 
-type TodaytimeApiObjectType = {
-  s: string,
-  i: string,
-  h: string
-};
-
 route.get(
   "/",
   wrap((req: express$Request, res: express$Response) =>
-    promisifyRequest(loadEnv("CURRENT_TIME_API"))
+    promisifyRequest({
+      url: `${loadEnv(
+        "TIME_IR_MAIN_URL"
+      )}/Tools/GetDate.aspx?t=${new Date().getTime()}`,
+      headers: {
+        Referer: "http://www.time.ir/"
+      }
+    })
       .then((timeResponse: { body: string }) => {
-        const timeObject: TodaytimeApiObjectType = JSON.parse(
-          timeResponse.body
-        );
-        return `${timeObject.h}:${timeObject.i}:${timeObject.s}`;
+        const splitted = timeResponse.body.split(" ");
+        const hourIndex = 3;
+        const minuteIndex = 4;
+        const secondIndex = 5;
+        return `${splitted[hourIndex]}:${splitted[minuteIndex]}:${
+          splitted[secondIndex]
+        }`;
       })
       .then((time: string) => {
-        promisifyRequest(loadEnv("TIME_IR_MAIN_URL"))
-          .then((response: { statusCode: number, body: string }) => {
+        promisifyRequest(loadEnv("TIME_IR_MAIN_URL")).then(
+          (response: { statusCode: number, body: string }) => {
             const healthyStatusCode = 200;
             if (response.statusCode !== healthyStatusCode)
               throw new BadRequest("Bad Request to time.ir");
@@ -41,10 +45,8 @@ route.get(
                 dates
               })
             );
-          })
-          .catch(() => {
-            throw new BadRequest("Bad Request to time.ir");
-          });
+          }
+        );
       })
   )
 );
