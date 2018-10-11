@@ -36,7 +36,7 @@ route.get(
 
             // eslint-disable-next-line max-nested-callbacks
             getCurrentDate(response.body).then((dates: CurrentDateObjectType) =>
-              res.send({
+              res.json({
                 time,
                 dates
               })

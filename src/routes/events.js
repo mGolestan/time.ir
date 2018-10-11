@@ -36,7 +36,7 @@ route.get(
           throw new BadRequest("Bad Request to time.ir");
 
         getDayEvents(response.body).then((events: Array<string>) =>
-          res.send(events)
+          res.json(events)
         );
       })
       .catch(() => {

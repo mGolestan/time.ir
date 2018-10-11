@@ -12,11 +12,11 @@ route.get(
     promisifyRequest(loadEnv("TIME_IR_MAIN_URL")).then(
       (timeIrResponse: { statusCode: number }) => {
         if (timeIrResponse.statusCode)
-          res.send({
+          res.json({
             status: "ok"
           });
         else
-          res.send({
+          res.json({
             status: "down"
           });
       }
