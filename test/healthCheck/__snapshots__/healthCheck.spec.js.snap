@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GET / returns a valid result on a valid request 1`] = `
+Object {
+  "status": "ok",
+}
+`;
