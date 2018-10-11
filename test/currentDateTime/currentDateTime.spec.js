@@ -5,7 +5,7 @@ import flatten from "flat";
 
 import app from "../../src/app";
 
-describe("GET /", () => {
+describe("GET /datetime", () => {
   it(
     "returns expected keys on a valid request",
     () => {
