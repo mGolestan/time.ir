@@ -13,13 +13,13 @@ const promisifyRequest = promisify(request);
 
 route.get(
   "/",
-  wrap((req: express$Request, res: express$Response) =>
-    promisifyRequest({
-      url: `${loadEnv(
-        "TIME_IR_MAIN_URL"
-      )}/Tools/GetDate.aspx?t=${new Date().getTime()}`,
+  wrap((req: express$Request, res: express$Response) => {
+    const timeIrMainUrl = loadEnv("TIME_IR_MAIN_URL");
+
+    return promisifyRequest({
+      url: `${timeIrMainUrl}/Tools/GetDate.aspx?t=${new Date().getTime()}`,
       headers: {
-        Referer: "http://www.time.ir/"
+        Referer: timeIrMainUrl
       }
     })
       .then((timeResponse: { body: string }) => {
@@ -32,7 +32,7 @@ route.get(
         }`;
       })
       .then((time: string) => {
-        promisifyRequest(loadEnv("TIME_IR_MAIN_URL")).then(
+        promisifyRequest(timeIrMainUrl).then(
           (response: { statusCode: number, body: string }) => {
             const healthyStatusCode = 200;
             if (response.statusCode !== healthyStatusCode)
@@ -47,8 +47,8 @@ route.get(
             );
           }
         );
-      })
-  )
+      });
+  })
 );
 
 export default route;
