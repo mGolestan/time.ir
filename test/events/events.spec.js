@@ -19,14 +19,11 @@ describe("GET /events", () => {
   );
 
   it(
-    "should return an empty array on a day with no events",
+    "should return an empty array with 204 statusCode for a day with no events",
     () => {
       return request(app)
         .get("/events?year=1397&month=07&day=15")
-        .expect(200)
-        .then((res: { body: Array<string> }) => {
-          expect(res.body.length).toEqual(0);
-        });
+        .expect(204);
     },
     20000
   );
