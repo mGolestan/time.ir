@@ -31,10 +31,6 @@ route.get(
 
     promisifyRequest(url)
       .then((response: { statusCode: number, body: string }) => {
-        const healthyStatusCode = 200;
-        if (response.statusCode !== healthyStatusCode)
-          throw new BadRequest("Bad Request to time.ir");
-
         getAzanTimes(response.body).then((azanTimes: AzanObjectType) => {
           res.json(azanTimes);
         });

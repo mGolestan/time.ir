@@ -11,14 +11,17 @@ route.get(
   wrap((req: express$Request, res: express$Response) =>
     promisifyRequest(loadEnv("TIME_IR_MAIN_URL")).then(
       (timeIrResponse: { statusCode: number }) => {
-        if (timeIrResponse.statusCode)
+        // eslint-disable-next-line no-magic-numbers
+        if (timeIrResponse.statusCode === 200)
           res.json({
             status: "ok"
           });
-        else
-          res.json({
-            status: "down"
+        else {
+          // eslint-disable-next-line no-magic-numbers
+          res.status(500).json({
+            status: "time.ir not responed"
           });
+        }
       }
     )
   )
