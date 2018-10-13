@@ -11,8 +11,8 @@ describe("GET /events", () => {
       return request(app)
         .get("/events?year=1397&month=07&day=13")
         .expect(200)
-        .then((res: { body: Array<string> }) => {
-          expect(res.body.length).toEqual(2);
+        .then((res: { body: { events: Array<string> } }) => {
+          expect(res.body.events.length).toEqual(2);
         });
     },
     20000

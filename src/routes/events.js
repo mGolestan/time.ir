@@ -37,7 +37,7 @@ route.get(
 
         getDayEvents(response.body).then((events: Array<string>) => {
           const statusCode = events.length === 0 ? 204 : 200; // eslint-disable-line no-magic-numbers
-          res.status(statusCode).json(events);
+          res.status(statusCode).json({ events });
         });
       })
       .catch(() => {
