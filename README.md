@@ -1,6 +1,11 @@
 # time.ir
-This is an easy-to-use api for iranian offcial date time website ([Time.ir](http://time.ir)).
-<br/> Feel free to Contribute.
+This is an easy-to-use api for iranian offcial date-time website ([Time.ir](http://time.ir)), Which gives you all features of it. Follow this readme for more info.
+
+Table of contents
+-
+- [API Documentation](https://github.com/mGolestan/time.ir#api-documentation)
+- [Getting started](https://github.com/mGolestan/time.ir#getting-started)
+- [Production Use](https://github.com/mGolestan/time.ir#production-use)
 
 API Documentation
 -
@@ -53,3 +58,5 @@ $ npm install -g pm2
 then
 $ pm2 start dist/index.js --name="a name"
 ```
+#
+**Feel free to Contribute.**
