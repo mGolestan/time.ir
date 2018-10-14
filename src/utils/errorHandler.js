@@ -1,22 +1,25 @@
 // @flow
-import { BadRequest, InternalServerError } from "./errors";
 import loadEnv from "./loadEnv";
 import promisifyRequest from "./promisifyRequest";
 
-const errorHandler = (message?: string) => {
+/* eslint-disable no-magic-numbers */
+const errorHandler = (res: express$Response, message?: string) => {
   promisifyRequest(loadEnv("TIME_IR_MAIN_URL")).then(
     (response: { statusCode: number }) => {
-      // eslint-disable-next-line no-magic-numbers
       if (response.statusCode === 500)
-        throw new InternalServerError("time.ir is down");
+        res.status(500).json({
+          error: "time.ir is down"
+        });
       else
-        throw new BadRequest(
-          message ||
-            `bad request to application, validate parameters or
-            contact owner https://github.com/mGolestan through email`
-        );
+        res.status(400).json({
+          error:
+            message ||
+            "bad request to application: validate parameters." +
+              "if error consisted contact owner https://github.com/mGolestan through email"
+        });
     }
   );
 };
+/* eslint-enable no-magic-numbers */
 
 export default errorHandler;

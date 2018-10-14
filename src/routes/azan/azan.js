@@ -4,7 +4,7 @@ import { Router as router } from "express";
 import { wrap } from "async-middleware";
 import request from "request";
 import { validateParameters } from "../../middlewares";
-import { BadRequest } from "../../utils/errors";
+import errorHandler from "../../utils/errorHandler";
 import loadEnv from "../../utils/loadEnv";
 import { getCityByKey, getProvinceByKey } from "../../utils/citiesData";
 import { getAzanTimes } from "../../utils/bodySelectors";
@@ -46,9 +46,7 @@ route.get(
           });
         })
       )
-      .catch(() => {
-        throw new BadRequest("Bad Request to time.ir");
-      });
+      .catch(() => errorHandler(res));
   })
 );
 
