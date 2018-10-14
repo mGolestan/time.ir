@@ -17,3 +17,6 @@ node_modules/
 
 # NPM lock file – because we're using yarn for now
 package-lock.json
+
+# winston log file
+winston.log
