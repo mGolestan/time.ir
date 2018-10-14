@@ -23,7 +23,7 @@ export type AzanRequestType = express$Request & {
 route.get(
   "/",
   validateParameters("query", ["province", "city"]),
-  wrap((req: AzanRequestType, res: express$Response) => {
+  wrap((req: AzanRequestType, res: express$Response): Promise<void> => {
     const { province, city } = req.query;
 
     const url = `${loadEnv(
@@ -33,11 +33,15 @@ route.get(
     return promisifyRequest(url)
       .then((response: { statusCode: number, body: string }) =>
         getAzanTimes(response.body).then((azanTimes: AzanObjectType) => {
-          const provinceName = getProvinceByKey(province.toString());
-          const cityName = getCityByKey(province.toString(), city.toString());
+          const provinceName = getProvinceByKey(province.toString())[0];
+          const cityName = getCityByKey(
+            province.toString(),
+            city.toString()
+          )[0];
+
           res.json({
-            provinceName: provinceName[0].name,
-            cityName: cityName[0].name,
+            provinceName: provinceName.name,
+            cityName: cityName.name,
             times: azanTimes
           });
         })
