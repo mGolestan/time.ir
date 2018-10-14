@@ -31,7 +31,7 @@ Returns all events of a day.
 ## Errors
 
 * **400 Bad Request** — Request did not contain one of the required parameters.
-* **500 Not Found** — there is a problem with time.ir
+* **500 Internal Server Error** — there is a problem with time.ir
 
 ---
 
