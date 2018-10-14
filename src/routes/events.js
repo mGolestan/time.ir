@@ -4,7 +4,7 @@ import { Router as router } from "express";
 import { wrap } from "async-middleware";
 import request from "request";
 import { validateParameters } from "../middlewares";
-import { BadRequest } from "../utils/errors";
+import errorHandler from "../utils/errorHandler";
 import loadEnv from "../utils/loadEnv";
 import { getDayEvents } from "../utils/bodySelectors";
 
@@ -36,9 +36,7 @@ route.get(
           res.status(statusCode).json({ events });
         })
       )
-      .catch(() => {
-        throw new BadRequest("Bad Request to time.ir");
-      });
+      .catch(() => errorHandler(res));
   })
 );
 

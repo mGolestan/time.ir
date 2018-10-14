@@ -4,6 +4,7 @@ import { Router as router } from "express";
 import { wrap } from "async-middleware";
 import request from "request";
 import { validateParameters } from "../middlewares";
+import errorHandler from "../utils/errorHandler";
 import { BadRequest } from "../utils/errors";
 import loadEnv from "../utils/loadEnv";
 import { getConvertedDates } from "../utils/bodySelectors";
@@ -54,9 +55,7 @@ route.get(
           (convertedDates: ConvertedDateObjectType) => res.json(convertedDates)
         )
       )
-      .catch(() => {
-        throw new BadRequest("Bad Request to time.ir");
-      });
+      .catch(() => errorHandler(res));
   })
 );
 

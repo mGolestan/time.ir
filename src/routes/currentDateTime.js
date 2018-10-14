@@ -3,7 +3,7 @@ import { promisify } from "util";
 import { Router as router } from "express";
 import { wrap } from "async-middleware";
 import request from "request";
-import { BadRequest } from "../utils/errors";
+import errorHandler from "../utils/errorHandler";
 import loadEnv from "../utils/loadEnv";
 import { getCurrentDate } from "../utils/bodySelectors";
 import type { CurrentDateObjectType } from "../utils/bodySelectors/getCurrentDate";
@@ -43,13 +43,9 @@ route.get(
                 })
             )
           )
-          .catch(() => {
-            throw new BadRequest("Bad Request to time.ir");
-          })
+          .catch(() => errorHandler(res))
       )
-      .catch(() => {
-        throw new BadRequest("Bad Request to time.ir");
-      });
+      .catch(() => errorHandler(res));
   })
 );
 
