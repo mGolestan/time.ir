@@ -3,6 +3,7 @@ import express from "express";
 import bodyParser from "body-parser";
 import compress from "compression";
 import helmet from "helmet";
+import cors from "cors";
 import routes from "./routes";
 import { notFound, errResponse, logRequest } from "./middlewares";
 
@@ -17,6 +18,7 @@ app
     })
   )
   .use(compress())
+  .use(cors())
   .use(bodyParser.json())
   .use(bodyParser.urlencoded({ extended: true }))
   .use(logRequest)
