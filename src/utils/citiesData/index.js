@@ -7,6 +7,11 @@ export const getProvinceCities = (provinceKey: string): Array<CitiesDataType> =>
     (province: CitiesDataType) => province.key.toString() === provinceKey
   );
 
+export const getProvinceByKey = (provinceKey: string): Array<CitiesDataType> =>
+  data.filter(
+    (province: CitiesDataType) => province.key.toString() === provinceKey
+  );
+
 type CityType = { name: string, key: number | string };
 export const getCityByKey = (
   provinceKey: string,

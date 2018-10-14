@@ -31,22 +31,24 @@ route.get(
           splitted[secondIndex]
         }`;
       })
-      .then((time: string) => {
-        promisifyRequest(timeIrMainUrl).then(
-          (response: { statusCode: number, body: string }) => {
-            const healthyStatusCode = 200;
-            if (response.statusCode !== healthyStatusCode)
-              throw new BadRequest("Bad Request to time.ir");
-
-            // eslint-disable-next-line max-nested-callbacks
-            getCurrentDate(response.body).then((dates: CurrentDateObjectType) =>
-              res.json({
-                time,
-                dates
-              })
-            );
-          }
-        );
+      .then((time: string) =>
+        promisifyRequest(timeIrMainUrl)
+          .then((response: { statusCode: number, body: string }) =>
+            getCurrentDate(response.body).then(
+              // eslint-disable-next-line max-nested-callbacks
+              (dates: CurrentDateObjectType) =>
+                res.json({
+                  time,
+                  dates
+                })
+            )
+          )
+          .catch(() => {
+            throw new BadRequest("Bad Request to time.ir");
+          })
+      )
+      .catch(() => {
+        throw new BadRequest("Bad Request to time.ir");
       });
   })
 );

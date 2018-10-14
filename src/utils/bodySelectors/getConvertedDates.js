@@ -4,13 +4,13 @@ import toEnglishDigits from "../toEnglishDigits";
 
 const replaceDateSeparators = (string: string) => string.split("/").join("-");
 
-export type CurrentDateObjectType = {
+export type ConvertedDateObjectType = {
   jalali: { numeral: string, text: string },
   gregorian: { numeral: string, text: string },
   hijri: { numeral: string, text: string }
 };
 
-const getCurrentDate = (body: string): Promise<CurrentDateObjectType> => {
+const getCurrentDate = (body: string): Promise<ConvertedDateObjectType> => {
   const dom = new JSDOM(body);
   let ShamsiNumeralDate;
   let ShamsiNormalTextDate;

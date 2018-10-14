@@ -7,6 +7,7 @@ import { validateParameters } from "../middlewares";
 import { BadRequest } from "../utils/errors";
 import loadEnv from "../utils/loadEnv";
 import { getConvertedDates } from "../utils/bodySelectors";
+import type { ConvertedDateObjectType } from "../utils/bodySelectors/getConvertedDates";
 
 const route = router();
 const promisifyRequest = promisify(request);
@@ -49,9 +50,9 @@ route.get(
 
     return promisifyRequest(url)
       .then((response: { statusCode: number, body: string }) =>
-        getConvertedDates(response.body).then((convertedDates: *) => {
-          res.json(convertedDates);
-        })
+        getConvertedDates(response.body).then(
+          (convertedDates: ConvertedDateObjectType) => res.json(convertedDates)
+        )
       )
       .catch(() => {
         throw new BadRequest("Bad Request to time.ir");

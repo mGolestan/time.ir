@@ -29,17 +29,13 @@ route.get(
       "TIME_IR_MAIN_URL"
     )}/fa/event/list/0/${+year}/${+month}/${+day}`;
 
-    promisifyRequest(url)
-      .then((response: { statusCode: number, body: string }) => {
-        const healthyStatusCode = 200;
-        if (response.statusCode !== healthyStatusCode)
-          throw new BadRequest("Bad Request to time.ir");
-
+    return promisifyRequest(url)
+      .then((response: { statusCode: number, body: string }) =>
         getDayEvents(response.body).then((events: Array<string>) => {
           const statusCode = events.length === 0 ? 204 : 200; // eslint-disable-line no-magic-numbers
           res.status(statusCode).json({ events });
-        });
-      })
+        })
+      )
       .catch(() => {
         throw new BadRequest("Bad Request to time.ir");
       });

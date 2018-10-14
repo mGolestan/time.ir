@@ -7,9 +7,7 @@ const route = router();
 
 route.get(
   "/",
-  wrap((req: express$Request, res: express$Response) => {
-    res.json(citiesData);
-  })
+  wrap((req: express$Request, res: express$Response) => res.json(citiesData))
 );
 
 export default route;

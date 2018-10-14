@@ -6,6 +6,7 @@ import request from "request";
 import { validateParameters } from "../../middlewares";
 import { BadRequest } from "../../utils/errors";
 import loadEnv from "../../utils/loadEnv";
+import { getCityByKey, getProvinceByKey } from "../../utils/citiesData";
 import { getAzanTimes } from "../../utils/bodySelectors";
 import type { AzanObjectType } from "../../utils/bodySelectors/getAzanTimes";
 
@@ -29,12 +30,18 @@ route.get(
       "TIME_IR_MAIN_URL"
     )}/?province=${+province}&city=${+city}`;
 
-    promisifyRequest(url)
-      .then((response: { statusCode: number, body: string }) => {
+    return promisifyRequest(url)
+      .then((response: { statusCode: number, body: string }) =>
         getAzanTimes(response.body).then((azanTimes: AzanObjectType) => {
-          res.json(azanTimes);
-        });
-      })
+          const provinceName = getProvinceByKey(province.toString());
+          const cityName = getCityByKey(province.toString(), city.toString());
+          res.json({
+            provinceName: provinceName[0].name,
+            cityName: cityName[0].name,
+            times: azanTimes
+          });
+        })
+      )
       .catch(() => {
         throw new BadRequest("Bad Request to time.ir");
       });
