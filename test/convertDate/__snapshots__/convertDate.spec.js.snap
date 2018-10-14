@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GET /convert returns a valid result on a valid request for gregorian type 1`] = `
+Object {
+  "gregorian": Object {
+    "numeral": "1974-10-01",
+    "text": "Tuesday, October 1, 1974",
+  },
+  "hijri": Object {
+    "numeral": "1394-09-14",
+    "text": "الثلاثاء، 14 رمضان 1394",
+  },
+  "jalali": Object {
+    "numeral": "1353-07-09",
+    "text": "سه شنبه، 9 مهر 1353",
+  },
+}
+`;
+
+exports[`GET /convert returns a valid result on a valid request for hijri type 1`] = `
+Object {
+  "gregorian": Object {
+    "numeral": "2018-10-11",
+    "text": "Thursday, October 11, 2018",
+  },
+  "hijri": Object {
+    "numeral": "1440-02-01",
+    "text": "الخمیس‬، 1 صفر 1440",
+  },
+  "jalali": Object {
+    "numeral": "1397-07-19",
+    "text": "پنج شنبه، 19 مهر 1397",
+  },
+}
+`;
+
+exports[`GET /convert returns a valid result on a valid request for jalali type 1`] = `
+Object {
+  "gregorian": Object {
+    "numeral": "2017-05-19",
+    "text": "Friday, May 19, 2017",
+  },
+  "hijri": Object {
+    "numeral": "1438-08-22",
+    "text": "الجمعة، 22 شعبان 1438",
+  },
+  "jalali": Object {
+    "numeral": "1396-02-29",
+    "text": "جمعه، 29 اردیبهشت 1396",
+  },
+}
+`;
