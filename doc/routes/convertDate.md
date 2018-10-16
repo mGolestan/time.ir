@@ -49,7 +49,7 @@ Returns converted dates based on entered value of `type`
 
 **Request**
 
-    GET /convert?year=1397&month=7&day=19&type=hijri
+    GET /convert?year=1397&month=7&day=19&type=jalali
 
 **Return**
 
