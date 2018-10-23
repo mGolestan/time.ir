@@ -10,11 +10,11 @@ import loadEnv from "../utils/loadEnv";
 const route = router();
 const promisifyRequest = promisify(request);
 
-type GetEventRequestType = express$Request & {
+type GetEventRequestType = {
   query: {
     month: string,
     year: string
-  }
+  } & express$Request
 };
 
 route.get(
@@ -23,7 +23,7 @@ route.get(
   wrap((req: GetEventRequestType, res: express$Response) => {
     const { month, year } = req.query;
 
-    const url = `${loadEnv("TIME_IR_MAIN_URL")}/${+year}/${+month}`;
+    const url = `${loadEnv("TIME_IR_MAIN_URL")}/${year}/${month}`;
 
     return promisifyRequest(url)
       .then((response: { statusCode: number, body: string }) => {}) //eslint-disable-line
