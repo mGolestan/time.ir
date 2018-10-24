@@ -6,7 +6,7 @@ import updateEventString from "../updateEventString";
 export type MonthEventResponseType = {
   day: string | number,
   event: string,
-  holiday: boolean
+  isHoliday: boolean
 };
 
 const getDayEvents = (body: string): Promise<Array<MonthEventResponseType>> => {
@@ -26,7 +26,7 @@ const getDayEvents = (body: string): Promise<Array<MonthEventResponseType>> => {
     return events.push({
       day: toEnglishDigits(event.match(/^[۱-۹]+/g).shift()),
       event: updateEventString(event),
-      holiday: getEventsFromHtml[eventKey].classList.contains("eventHoliday")
+      isHoliday: getEventsFromHtml[eventKey].classList.contains("eventHoliday")
     });
   });
 

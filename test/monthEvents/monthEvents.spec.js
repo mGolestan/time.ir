@@ -20,7 +20,7 @@ describe("GET /events/month", () => {
           // eslint-disable-next-line max-nested-callbacks
           events.map((event: MonthEventResponseType) => {
             const responseKeys = Object.keys(flatten(event));
-            expect(responseKeys).toEqual(["day", "event", "holiday"]);
+            expect(responseKeys).toEqual(["day", "event", "isHoliday"]);
           });
         });
     },
