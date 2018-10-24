@@ -4,6 +4,10 @@ import { wrap } from "async-middleware";
 import { validateParameters } from "../middlewares";
 import errorHandler from "../utils/errorHandler";
 import requstWithMainUrl from "../utils/requstWithMainUrl";
+import {
+  getMonthEvents,
+  type MonthEventResponseType
+} from "../utils/bodySelectors";
 
 const route = router();
 
@@ -29,7 +33,12 @@ route.get(
       "Content-Type": "application/x-www-form-urlencoded"
     })
       .then((response: { statusCode: number, body: string }) => {
-        res.send(response);
+        getMonthEvents(response.body).then(
+          (events: Array<MonthEventResponseType>) => {
+            const statusCode = events.length === 0 ? 204 : 200; // eslint-disable-line no-magic-numbers
+            res.status(statusCode).json({ events });
+          }
+        );
       })
       .catch(() => errorHandler(res));
   })
