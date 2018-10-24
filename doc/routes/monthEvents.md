@@ -1,4 +1,4 @@
-# Day Events
+# Month Events
 
     GET /events/month
 
