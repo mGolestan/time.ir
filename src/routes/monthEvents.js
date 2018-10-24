@@ -1,14 +1,11 @@
 // @flow
-import { promisify } from "util";
 import { Router as router } from "express";
 import { wrap } from "async-middleware";
-import request from "request";
 import { validateParameters } from "../middlewares";
 import errorHandler from "../utils/errorHandler";
-import loadEnv from "../utils/loadEnv";
+import requstWithMainUrl from "../utils/requstWithMainUrl";
 
 const route = router();
-const promisifyRequest = promisify(request);
 
 type GetEventRequestType = {
   query: {
@@ -23,10 +20,17 @@ route.get(
   wrap((req: GetEventRequestType, res: express$Response) => {
     const { month, year } = req.query;
 
-    const url = `${loadEnv("TIME_IR_MAIN_URL")}/${year}/${month}`;
+    const postData = {
+      Year: year,
+      Month: month
+    };
 
-    return promisifyRequest(url)
-      .then((response: { statusCode: number, body: string }) => {}) //eslint-disable-line
+    return requstWithMainUrl("POST", "/", postData, {
+      "Content-Type": "application/x-www-form-urlencoded"
+    })
+      .then((response: { statusCode: number, body: string }) => {
+        res.send(response);
+      })
       .catch(() => errorHandler(res));
   })
 );
