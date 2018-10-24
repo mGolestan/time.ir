@@ -2,14 +2,9 @@
 
 import request from "supertest";
 import flatten from "flat";
+import type { MonthEventResponseType } from "../../src/utils/bodySelectors";
 
 import app from "../../src/app";
-
-type MonthEventResponseType = {
-  day: string | number,
-  event: string,
-  holiday: boolean
-};
 
 describe("GET /events/month", () => {
   it(
@@ -18,11 +13,12 @@ describe("GET /events/month", () => {
       return request(app)
         .get("/events/month?year=1397&month=08")
         .expect(200)
-        .then((res: { body: Array<MonthEventResponseType> }) => {
-          expect(Array.isArray(res.body)).toBe(true);
+        .then((res: { body: { events: Array<MonthEventResponseType> } }) => {
+          const events = res.body.events;
+          expect(Array.isArray(events)).toBe(true);
 
           // eslint-disable-next-line max-nested-callbacks
-          res.body.map((event: MonthEventResponseType) => {
+          events.map((event: MonthEventResponseType) => {
             const responseKeys = Object.keys(flatten(event));
             expect(responseKeys).toEqual(["day", "event", "holiday"]);
           });
