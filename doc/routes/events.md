@@ -30,7 +30,7 @@ Returns all events of a day.
 
 ## Errors
 
-* **204 No Contentt** — This status returns on a day with no event.
+* **204 No Content** — This status returns on a day with no event.
 * **400 Bad Request** — Request did not contain one of the required parameters.
 * **500 Internal Server Error** — there is a problem with time.ir
 
