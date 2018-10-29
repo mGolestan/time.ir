@@ -46,17 +46,8 @@ Returns all events of a day.
 
 ```json
 {
-  "jalali": {
-    "numeral": "1397-07-19",
-    "text": "پنج شنبه، 19 مهر 1397"
-  },
-  "gregorian": {
-    "numeral": "2018-10-11",
-    "text": "Thursday, October 11, 2018"
-  },
-  "hijri": {
-    "numeral": "1440-02-01",
-    "text": "الخمیس‬، 1 صفر 1440"
-  }
+    "events": [
+        "روز دامپزشکی"
+    ]
 }
 ```
