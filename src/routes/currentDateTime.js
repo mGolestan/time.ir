@@ -36,7 +36,6 @@ route.get(
     const currentDates = promisifyRequest(timeIrMainUrl)
       .then((response: { statusCode: number, body: string }) =>
         getCurrentDate(response.body).then(
-          // eslint-disable-next-line max-nested-callbacks
           (dates: CurrentDateObjectType) => dates
         )
       )
