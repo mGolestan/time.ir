@@ -16,7 +16,7 @@ route.get(
   wrap((req: express$Request, res: express$Response) => {
     const timeIrMainUrl = loadEnv("TIME_IR_MAIN_URL");
 
-    return promisifyRequest({
+    const currentTime = promisifyRequest({
       url: `${timeIrMainUrl}/Tools/GetDate.aspx?t=${new Date().getTime()}`,
       headers: {
         Referer: timeIrMainUrl
@@ -31,21 +31,23 @@ route.get(
           splitted[secondIndex]
         }`;
       })
-      .then((time: string) =>
-        promisifyRequest(timeIrMainUrl)
-          .then((response: { statusCode: number, body: string }) =>
-            getCurrentDate(response.body).then(
-              // eslint-disable-next-line max-nested-callbacks
-              (dates: CurrentDateObjectType) =>
-                res.json({
-                  time,
-                  dates
-                })
-            )
-          )
-          .catch(() => errorHandler(res))
+      .catch(() => errorHandler(res));
+
+    const currentDates = promisifyRequest(timeIrMainUrl)
+      .then((response: { statusCode: number, body: string }) =>
+        getCurrentDate(response.body).then(
+          (dates: CurrentDateObjectType) => dates
+        )
       )
       .catch(() => errorHandler(res));
+
+    return Promise.all([currentTime, currentDates]).then(
+      (data: Array<?string>) =>
+        res.json({
+          time: data[0],
+          dates: data[1]
+        })
+    );
   })
 );
 
