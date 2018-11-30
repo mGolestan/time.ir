@@ -29,6 +29,7 @@ In order to install this repository in your local envirement or server, you just
 
 ```
 $ git clone https://github.com/mGolestan/time.ir.git
+$ cd time.ir
 $ nvm use
 $ yarn
 ```
