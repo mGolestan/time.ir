@@ -28,7 +28,7 @@ route.get(
 
     const url = `${loadEnv(
       "TIME_IR_MAIN_URL"
-    )}/?province=${+province}&city=${+city}`;
+    )}/fa/main?province=${+province}&city=${+city}`;
 
     return promisifyRequest(url)
       .then((response: { statusCode: number, body: string }) =>
