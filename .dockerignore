@@ -1,0 +1,10 @@
+dist
+test
+doc
+.circleci
+
+*.md
+Dockerfile
+.gitignore
+.eslintignore
+.dockerignore
